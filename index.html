@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- seo -->
+  <title>Zep</title>
+  <meta name="author" content="Hugo Queiroz - Zep">
+  <meta name="description" content="Zep">
+  <meta name="keywords" content="" />
+  <link rel="shortcut icon" href="assets/icons/favicon.png">
+  <meta name="theme-color" content="red">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- utilities -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      html, body {  
+      @apply
+        overflow-x-hidden
+        scroll-smooth
+      }
+      h1, h2, h3, h4, h5, h6, p, span, a {
+        @apply
+        antialiased
+      }
+      strong {
+        @apply
+        font-[800]
+      }
+      .wrapper {
+        @apply
+        w-[88vw]
+        3xl:w-[64vw]
+        mx-auto
+        py-6
+        px-0
+      }
+      .wrappersm {
+        @apply
+        w-[74vw]
+        xl:w-[84vw]
+        2xl:w-[74vw]
+        3xl:w-[56vw]
+        mx-auto
+        py-6
+        px-0
+      }
+      .mask {
+        @apply
+        w-full
+        absolute
+        top-0
+        h-full
+        bg-mask
+        absolute
+        pointer-events-none
+      }
+      .maskDark {
+        @apply
+        w-full
+        absolute
+        top-0
+        h-full
+        bg-maskDark
+        absolute
+        pointer-events-none
+      }
+      .button {
+        @apply
+        py-[20px]
+        px-6
+        w-max
+        rounded-full
+        font-bold
+        2sm:text-base
+        sm:text-2xl
+      }
+      .title {
+        @apply
+        font-bold
+        2sm:text-4xl
+        sm:text-5xl
+      }
+      .text {
+        @apply 
+        font-normal
+        2sm:text-[1.5rem]
+        sm:text-[1.65rem]
+      }
+      .field label {
+        @apply
+        font-light
+        ml-3
+        mb-2
+        text-2xl
+      }
+      .field input, .field textarea {
+        @apply
+        px-3
+        py-2
+        text-text
+        rounded-full
+        bg-transparent
+        border-2
+        border-text
+        outline-0
+        text-lg
+      }
+      .field textarea {
+        @apply
+        rounded-[50px]
+        py-3
+        h-[200px]
+      }
+      .radio {
+        @apply 
+        text-text
+        text-2xl
+        font-normal
+        flex 
+        items-center
+      }
+      .radio input {
+        @apply
+        w-[20px]
+        h-[20px]
+        mx-1
+      }
+      /* .screenloading img {
+        animation: screenloadingImg 4s ease forwards;
+      }
+      @keyframes screenloadingImg {
+        0% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(-620px, -600px);
+        }
+      } */
+    }
+  </style>
+  <!-- config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            main: '#1282c6',
+            text: '#fff',
+            textDark: '#939393',
+            bg: '#0d0d0d',
+            bgLight: '#161616',
+            mask: '#0d0d0daa',
+            maskDark: '#0d0d0daa'
+          },
+          backgroundImage: {
+            herobg: 'url("assets/images/herobg.png")',
+            costHero: 'url("assets/images/cost-hero.jpg")',
+            workflowbg: 'url("assets/images/linhadetrabalhobg.jpg")',
+            fog: 'linear-gradient(to top, theme(colors.bg) 10%, transparent 100%)',
+            fog2: 'linear-gradient(to top, theme(colors.bg) 70%, transparent 100%)',
+          },
+          spacing: {
+            1: '8px',
+            2: '16px',
+            3: '24px',
+            4: '32px',
+            5: '40px',
+            6: '48px',
+            7: '56px',
+            8: '64px',
+            9: '72px',
+            10: '80px'
+          },
+          fontFamily: {
+            'sans': ['Open Sans', 'system-ui'],
+          },
+          screens: {
+            '2sm': { 'min': '400px', 'max': '639px' },
+            'sm': { 'min': '640px' },
+            'md': { 'min': '768px' },
+            'lg': { 'min': '1024px' },
+            'xl': { 'min': '1280px' },
+            '2xl': { 'min': '1536px' },
+            '3xl': { 'min': '2160px' },
+          },
+        }
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="screenloading w-full h-screen bg-bg fixed top-0 left-0 z-[9999999999] overflow-hidden flex items-center justify-center pointer-events-none">
+    <img src="assets/icons/logo.png" class="w-[200px]">
+  </div>
+
+  <!-- header -->
+  <header class="fixed w-full z-[999] backdrop-blur-sm">
+    <nav class="wrapper 2sm:!py-2 sm:!py-4 flex items-center justify-between">
+      <a href="#">
+        <figure>
+          <img src="assets/icons/logo.png" alt="Logo" class="w-[200px]" />
+        </figure>
+      </a>
+    </nav>
+  </header>
+
+  <!-- hero -->
+  <main class="w-full h-screen flex items-center bg-herobg bg-cover bg-center 3xl:bg-[-364px] relative">
+    <div class="wrapper z-50 2sm:mt-6 sm:mt-0">
+      <div>
+        <h1 class="title text-text 2sm:!text-5xl sm:!text-6xl xl:!text-7xl">Venda mais,<br>gaste menos e<br>Parcele o investimento!</h1>
+        <p class="text mt-2 text-text 2sm:!text-2xl sm:!text-3xl !font-bold w-auto xl:w-[700px] !leading-[1.4]">Acelere suas vendas, encontre clientes de forma ágil e eficaz; onde o seu cliente estiver, estaremos com você!</p>
+      </div>
+      <div class="mt-6">
+        <a href="#contato" class="button bg-main text-text">Quero vender mais</a>
+      </div>
+    </div>
+    <!-- costumers -->
+    <div class="w-[40%] h-screen bg-costHero bg-[0_124px] absolute right-0 hidden 2xl:block">
+      <div class="mt-[428px] ml-[84px] relative z-[99] flex items-center">
+        <div class="bg-main py-2 px-4 rounded-xl mr-4 text-right relative left-[54px] after:absolute after:contet-[' '] after:w-[32px] after:h-[32px] after:top-[38%] after:right-[-4%] after:bg-main after:rounded-lg after:rotate-45">
+          <p class="text-text font-[200] text-lg"><strong>José</strong> Rodrigues</p>
+          <strong class="text-text text-base">38 anos</strong>
+          <hr class="mt-[4px] mb-[6px]">
+          <p class="text-text text-[.75rem] font-[200] w-[125px] leading-[1]">Precisa <strong>encontrar a sua empresa!</strong></p>
+        </div>
+        <figure>
+          <img src="assets/images/costumer.jpg" class="">
+        </figure>
+      </div>
+    </div>
+    <!-- fog -->
+    <div class=" w-full absolute bottom-[-5px] h-[208px] bg-fog">
+    </div>
+    <!-- mask -->
+    <div class="mask"></div>
+  </main>
+
+  <!--  -->
+  <section class="bg-bg" id="sec2">
+    <div class="wrappersm !py-16 flex items-center gap-x-6 flex-wrap xl:flex-nowrap">
+      <div class="text-text w-auto xl:w-[32%]" id="sec21">
+        <h4 class="title">Te chamamos para conversar</h4>
+        <p class="text mt-4">Se você deseja <strong>aumentar o rendimento de sua empresa</strong>, iremos resolver isso!</p>
+      </div>
+      <form class="flex flex-col flex-1">
+        <div class="flex gap-x-4 w-full mt-6 xl:mt-0 2sm:flex-wrap sm:flex-nowrap">
+          <div class="field flex flex-col text-text 2sm:w-full sm:w-1/2" id="sec22">
+            <label for="quickname" class="text-lg">Qual seu nome?</label>
+            <input type="text" id="quickname">
+          </div>
+          <div class="field flex flex-col text-text 2sm:w-full sm:w-1/2 2sm:mt-2 sm:mt-0" id="sec23">
+            <label for="quicktel" class="text-lg">Qual seu contato?</label>
+            <input type="tel" id="quicktel">
+          </div>
+        </div>
+
+        <div class="flex flex-col justify-between items-center mt-4" id="sec24">
+          <div class="flex flex-row gap-8 w-full">
+            <label class="radio">
+              <input type="radio" name="quickcontactopt" checked> Ligação
+            </label>
+            <label class="radio">
+              <input type="radio" name="quickcontactopt"> Whatsapp
+            </label>
+          </div>
+          <div class="w-max mt-16 xl:mt-0 mr-auto xl:mr-0 xl:ml-auto">
+            <a href="#" class="button bg-main text-current text-lg text-text">Me chame</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!--  -->
+  <div class="bg-workflowbg bg-cover bg-center relative">
+    <!-- workflow -->
+    <section class="relative z-50">
+      <!-- fog -->
+      <div class="w-full absolute top-[-5px] h-[700px] bg-fog rotate-180 z-50"></div>
+      <div class="wrapper relative z-50" id="workflow">
+        <div class="mt-36 text-center">
+          <h4 class="title text-main">Acompanhe nossa linha de trabalho!</h4>
+          <p class="text mt-2 text-text">Fique por dentro das ações que faremos!</p>
+        </div>
+        <div class="mt-16 text-center w-[332px] mx-auto">
+          <p class="text text-text !leading-[1]">Onde o seu cliente estiver, <strong class="text-main">estaremos com você!</strong></p>
+        </div>
+
+        <!-- timeline -->
+        <div class="mt-12 relative">
+
+          <div class="w-[50%] text-left flex items-center">
+            <div class="pr-2 xl:pr-6" id="sec31">
+              <h6 class="title text-main 2sm:!text-[1.6rem] sm:!text-[2rem] xl:!text-[2.25rem] w-[80px]">Design Estratégico</h6>
+              <p class="text-text xms:!text-[1.2rem] sm:!text-[1.25rem] xl:!text-[1.5rem] !leading-[1.1] mt-2 xl:w-[264px]">Um visual direto e claro para a classe certa do seu cliente.</p>
+            </div>
+            <div class="flex-1 relative">
+              <div class="h-[1px] w-0 xl:w-full bg-[#707070] after:absolute after:right-[-6px] after:top-[-5px] after:content-[' '] after:w-[12px] after:h-[12px] after:rounded-full after:bg-main after:z-50"></div>
+            </div>
+          </div>
+
+          <div class="w-[50%] text-left flex flex-row-reverse items-center justify-end ml-auto mt-[-32px]">
+            <div class="pl-6" id="sec32">
+              <h6 class="title text-main 2sm:!text-[1.6rem] sm:!text-[2rem] xl:!text-[2.25rem] w-[80px]">Plataformas</h6>
+              <p class="text-text xms:!text-[1.2rem] sm:!text-[1.25rem] xl:!text-[1.5rem] !leading-[1.1] mt-2 2sm:w-auto lg:w-[294px]">Seu cliente pode ser encontrado em qualquer plataforma que ele utilize</p>
+            </div>
+            <div class="flex-1 relative">
+              <div class="h-[1px] w-0 xl:w-full bg-[#707070] after:absolute after:left-[-6px] after:top-[-5px] after:content-[' '] after:w-[12px] after:h-[12px] after:rounded-full after:bg-main after:z-50"></div>
+            </div>
+          </div>
+
+          <div class="w-[50%] text-left flex items-center pl-0 xl:pl-[5%] mt-[-32px]">
+            <div class="pr-2 xl:pr-6" id="sec33">
+              <h6 class="title text-main 2sm:!text-[1.6rem] sm:!text-[2rem] xl:!text-[2.25rem] w-[80px]">Otimização</h6>
+              <p class="text-text xms:!text-[1.2rem] sm:!text-[1.25rem] xl:!text-[1.5rem] !leading-[1.1] mt-2 w-auto xl:w-[294px]">Mesmo que o seu cliente utilize celular, tablete ou computador, iremos encontra-lo</p>
+            </div>
+            <div class="flex-1 relative">
+              <div class="h-[1px] w-0 xl:w-full bg-[#707070] after:absolute after:right-[-6px] after:top-[-5px] after:content-[' '] after:w-[12px] after:h-[12px] after:rounded-full after:bg-main after:z-50"></div>
+            </div>
+          </div>
+
+          <div class="w-[50%] text-left flex flex-row-reverse items-center justify-end ml-auto 2sm:pr-0 md:pr-[5%] mt-[-32px]">
+            <div class="pl-6" id="sec34">
+              <h6 class="title text-main 2sm:!text-[1.6rem] sm:!text-[2rem] xl:!text-[2.25rem] w-[80px]">Conteúdo</h6>
+              <p class="text-text xms:!text-[1.2rem] sm:!text-[1.25rem] xl:!text-[1.5rem] !leading-[1.1] mt-2 w-auto xl:w-[332px]">Criatividade escrita, objetiva e demonstrando sempre a qualidade do seu produto</p>
+            </div>
+            <div class="flex-1 relative">
+              <div class="h-[1px] w-0 xl:w-full bg-[#707070] after:absolute after:left-[-6px] after:top-[-5px] after:content-[' '] after:w-[12px] after:h-[12px] after:rounded-full after:bg-main after:z-50"></div>
+            </div>
+          </div>
+
+          <div class="w-[50%] text-left flex flex-row-reverse items-center justify-end ml-auto pr-[5%] relative mt-4 xl:mt-0">
+            <div class="pl-6 after:absolute after:left-[-5px] after:top-[10px] after:content-[' '] after:w-[12px] after:h-[12px] after:rounded-full after:bg-main after:z-50" id="sec35">
+              <h6 class="title text-main 2sm:!text-[1.6rem] sm:!text-[2rem] xl:!text-[2.25rem] w-[232px]">Novo cliente contratado!</h6>
+              <p class="text-text xms:!text-[1.2rem] sm:!text-[1.25rem] xl:!text-[1.5rem] !leading-[1.1] mt-2 2sm:w-[70%] sm:w-auto xl:w-[348px]">Nosso trabalho realizado e mais lucros para sua empresa!</p>
+            </div>
+          </div>
+
+          <div class="w-[1px] 2sm:h-[78%] sm:!h-[75%] xl:!h-[80%] bg-[#707070] absolute top-0 left-[50%]"></div>
+
+        </div>
+        <!-- timeline ends -->
+
+      </div>
+    </section>
+    <!-- workflow ends -->
+
+    <!-- services -->
+    <section class="relative">
+      <div class="wrapper !py-32 relative z-50">
+        <div class="text-center">
+          <h4 class="title text-main">O que podemos te oferecer?</h4>
+          <p class="text mt-2 text-text w-[432px] mx-auto">Nossas soluções que podem te ajudar na busca de novos clientes!</p>
+        </div>
+
+        <div class="flex flex-wrap justify-between mt-24 gap-12">
+
+          <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-8" id="sec41">
+            <figure>
+              <img src="assets/icons/marketing.png" alt="Marketing Digital icon" class="w-[54px] h-[54px] object-contain mb-1">
+            </figure>
+            <div>
+              <h6 class="text-2xl text-text font-bold">Marketing Digital</h6>
+              <p class="text-xl leading-[1.75] text-textDark mt-2">Faremos com que sua empresa seja conhecida e encontrada no universo digital</p>
+            </div>
+          </div>
+
+          <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-8" id="sec42">
+            <figure>
+              <img src="assets/icons/id-visual.png" alt="Identidade Visual icon" class="w-[54px] h-[54px] object-contain mb-1">
+            </figure>
+            <div>
+              <h6 class="text-2xl text-text font-bold">Identidade Visual</h6>
+              <p class="text-xl leading-[1.75] text-textDark mt-2">Sua empresa com diferencial visual de sua concorrência, construindo reconhecimento e fidelidade</p>
+            </div>
+          </div>
+
+          <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-8" id="sec43">
+            <figure>
+              <img src="assets/icons/marcas.png" alt="Marcas icon" class="w-[54px] h-[54px] object-contain mb-1">
+            </figure>
+            <div>
+              <h6 class="text-2xl text-text font-bold">Marcas</h6>
+              <p class="text-xl leading-[1.75] text-textDark mt-2">Desenvolveremos uma marca forte que represente a seriedade e diferencial da sua empresa</p>
+            </div>
+          </div>
+
+          <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-8" id="sec44">
+            <figure>
+              <img src="assets/icons/ads.png" alt="Ads - Anúncios Online icon" class="w-[54px] h-[54px] object-contain mb-1">
+            </figure>
+            <div>
+              <h6 class="text-2xl text-text font-bold">Ads - Anúncios Online</h6>
+              <p class="text-xl leading-[1.75] text-textDark mt-2">Criamos anúncios altamente personalizados para campanhas publicitárias eficazes</p>
+            </div>
+          </div>
+
+          <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-8" id="sec45">
+            <figure>
+              <img src="assets/icons/redes-sociais.png" alt="Redes Sociais icon" class="w-[54px] h-[54px] object-contain mb-1">
+            </figure>
+            <div>
+              <h6 class="text-2xl text-text font-bold">Redes Sociais</h6>
+              <p class="text-xl leading-[1.75] text-textDark mt-2">Aumentamos a visibilidade da sua empresa nas redes sociais, onde esta a maior audiência da internet</p>
+            </div>
+          </div>
+
+          <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-8" id="sec46">
+            <figure>
+              <img src="assets/icons/leads.png" alt="Leads icon" class="w-[54px] h-[54px] object-contain mb-1">
+            </figure>
+            <div>
+              <h6 class="text-2xl text-text font-bold">Leads</h6>
+              <p class="text-xl leading-[1.75] text-textDark mt-2">Segmentamos audiência, otimizamos anúncios, gerando o melhor retorno do seu investimento</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="mt-20 w-max mx-auto">
+          <a href="#contato" class="button bg-main text-text">Quero essas soluções</a>
+        </div>
+      </div>
+
+      <div class="w-full absolute bottom-[-5px] h-full bg-fog2"></div>
+    </section>
+
+    <!-- mask -->
+    <div class="maskDark"></div>
+  </div>
+
+  <!-- costumers -->
+  <section class="relative z-50 bg-bg">
+    <div class="wrapper !pb-32">
+      <div class="text-center">
+        <h4 class="title text-main">É isso que falam sobre a gente!</h4>
+        <p class="text mt-2 text-text w-[454px] mx-auto">O que alguns parceiros e clientes dizem sobre o nosso trabalho!</p>
+      </div>
+
+      <div class="flex flex-wrap justify-between xl:items-inherit 2xl:items-start mt-24 gap-12">
+
+        <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-6" id="sec51">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <figure>
+                <img src="assets/icons/marketing.png" alt="Marketing Digital icon" class="w-[64px] h-[64px] rounded-full object-cover mb-1">
+              </figure>
+              <div>
+                <h6 class="text-lg text-text font-bold">Eduardo Dias</h6>
+                <p class="text-textDark text-base mt-[2px]">CTO - QueroPedir</p>
+              </div>
+
+            </div>
+            <figure>
+              <img src="assets/icons/aspas.png" class="w-[48px]">
+            </figure>
+          </div>
+
+          <div>
+            <p class="text-lg leading-[1.75] text-textDark mt-2">A Agência Zep impulsionou nossa empresa com divulgação nas redes sociais, identidade visual marcante, leads qualificados e campanhas publicitárias eficientes. Sucesso garantido!</p>
+          </div>
+        </div>
+
+        <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-6" id="sec52">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <figure>
+                <img src="assets/icons/marketing.png" alt="Marketing Digital icon" class="w-[64px] h-[64px] rounded-full object-cover mb-1">
+              </figure>
+              <div>
+                <h6 class="text-lg text-text font-bold">Luan Pinto</h6>
+                <p class="text-textDark text-base mt-[2px]">CMO - DataCor3</p>
+              </div>
+
+            </div>
+            <figure>
+              <img src="assets/icons/aspas.png" class="w-[48px]">
+            </figure>
+          </div>
+
+          <div>
+            <p class="text-lg leading-[1.75] text-textDark mt-2">A Agência Zep realmente entendeu minhas necessidades e objetivos e foi capaz de traduzir isso em um trabalho excepcional. A comunicação foi clara e eficiente em todas as etapas, e eles sempre estiveram disponíveis para responder a todas as minhas perguntas e solicitações.</p>
+          </div>
+        </div>
+
+        <div class="w-full xl:w-[47%] 2xl:w-[30%] bg-bgLight py-4 px-6" id="sec53">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <figure>
+                <img src="assets/icons/marketing.png" alt="Marketing Digital icon" class="w-[64px] h-[64px] rounded-full object-cover mb-1">
+              </figure>
+              <div>
+                <h6 class="text-lg text-text font-bold">Diego Mendes Ferreira</h6>
+                <p class="text-textDark text-base mt-[2px]">Fundador da MF - Projcts</p>
+              </div>
+
+            </div>
+            <figure>
+              <img src="assets/icons/aspas.png" class="w-[48px]">
+            </figure>
+          </div>
+
+          <div>
+            <p class="text-lg leading-[1.75] text-textDark mt-2">Desde o momento em que entrei em contato com eles, fui tratado com profissionalismo e atenção. A equipe da Agência Zep demonstrou um profundo conhecimento do setor e compreendeu exatamente as necessidades da minha empresa.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="mt-20 w-max mx-auto">
+        <a href="#contato" class="button bg-main text-text">Quero resultados assim também</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section class="relative z-50 bg-bg">
+    <div class="wrapper" id="contato">
+      <div class="text-center">
+        <h4 class="title text-main w-auto xl:w-[872px] mx-auto">Se você quer vender mais, podemos fazer parte da sua história!</h4>
+        <p class="text mt-2 text-text">Vem com a gente que te mostraremos os resultados...</p>
+      </div>
+
+      <form class="flex flex-col w-full xl:w-[80%] 2xl:w-1/2 3xl:w-[60%] mx-auto mt-16 gap-3">
+        <h5 class="text-xl font-bold text-text text-center">Fale com a gente</h5>
+        <div class="field">
+          <input type="text" placeholder="Nome" class="w-full">
+        </div>
+        <div class="field flex gap-3">
+          <input type="email" placeholder="Email" class="w-1/2">
+          <input type="tel" placeholder="Telefone" class="w-1/2">
+        </div>
+        <div class="field">
+          <input type="text" placeholder="Assunto" class="w-full">
+        </div>
+        <div class="field">
+          <textarea placeholder="Mensagem" class="w-full"></textarea>
+        </div>
+
+        <div class="mt-2">
+          <a href="#" class="button bg-main text-text">Enviar</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- barba / gsap -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@barba/core"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
